@@ -27,18 +27,24 @@ const DomoSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  height: {
+    type: Number,
+    min: 0,
+    required: true,
+  },
 });
 
 DomoSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
+  height: doc.height,
 });
 
 DomoSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: mongoose.Types.ObjectId(ownerId),
   };
-  return DomoModel.find(search).select('name age').lean().exec(callback);
+  return DomoModel.find(search).select('name age height').lean().exec(callback);
 };
 
 DomoModel = mongoose.model('Domo', DomoSchema);
