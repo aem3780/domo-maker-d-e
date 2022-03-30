@@ -6,6 +6,11 @@ const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
+const infoPage = (req, res) => {
+  res.render('info', { csrfToken: req.csrfToken() });
+};
+
+
 const signupPage = (req, res) => {
   res.render('signup', { csrfToken: req.csrfToken() });
 };
@@ -70,4 +75,5 @@ module.exports = {
   logout,
   signup,
   getToken,
+  infoPage,
 };
