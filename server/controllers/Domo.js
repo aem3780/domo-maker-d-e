@@ -30,6 +30,23 @@ const makeDomo = async (req, res) => {
   }
 };
 
+const deleteDomo = (req, res) => {
+  if (!req.body.name) {
+    return res.status(400).json({ error: 'Name is required! ' });
+  }
+
+  DomoModel.deleteByOwner(req.session.account._id, req.body.name, (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred!' });
+    }
+
+    return res.sendStatus(204);
+  });
+
+  return false;
+};
+
 const getDomos = (req, res) => DomoModel.findByOwner(req.session.account._id, (err, docs) => {
   if (err) {
     console.log(err);
@@ -42,4 +59,5 @@ module.exports = {
   makerPage,
   makeDomo,
   getDomos,
+  deleteDomo,
 };
